@@ -1,0 +1,135 @@
+/* 全体レイアウト */
+body {
+  font-family: "Segoe UI", "Noto Sans JP", sans-serif;
+  background: linear-gradient(135deg, #e8f1ff, #ffffff);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* コンテナ共通 */
+.container {
+  max-width: 700px;
+  margin: 60px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 85, 170, 0.1);
+  padding: 40px;
+}
+
+/* タイトル */
+h1, h2 {
+  text-align: center;
+  color: #2a5db0;
+  margin-bottom: 25px;
+}
+
+/* ボタン共通 */
+button {
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+/* 入力フォーム */
+input, select {
+  width: 95%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #bcd3f7;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+input:focus, select:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+}
+
+/* 教師用の単語リスト */
+.word-list {
+  margin-top: 25px;
+  padding: 15px;
+  border-top: 2px solid #d3e4ff;
+}
+
+.word-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e3ecff;
+}
+
+.word-item span {
+  font-weight: 500;
+}
+
+/* テスト結果・問題表示 */
+#question {
+  font-size: 22px;
+  text-align: center;
+  color: #1e40af;
+  margin: 25px 0;
+}
+
+#result {
+  text-align: center;
+  font-size: 18px;
+  margin: 20px 0;
+}
+
+.correct {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.incorrect {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+/* ボタン配置 */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* 単元セレクター */
+.unit-select {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.unit-select select {
+  width: auto;
+}
+
+/* スマホ対応 */
+@media screen and (max-width: 600px) {
+  .container {
+    padding: 25px;
+    margin: 30px 10px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+  }
+}
