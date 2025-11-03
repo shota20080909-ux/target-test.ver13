@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>語彙力テスト（教師用）</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>語彙力テスト（教師用）</h1>
+
+  <section>
+    <h2>単語リストを登録</h2>
+    <p>以下の形式で入力してください：</p>
+    <code>apple=りんご<br>book=本</code><br><br>
+
+    <input type="text" id="unitName" placeholder="単元名を入力">
+    <br>
+    <textarea id="wordInput" placeholder="単語=意味 を1行ずつ入力"></textarea><br>
+    <button id="saveBtn">単元を保存</button>
+  </section>
+
+  <section>
+    <h2>登録済みの単元</h2>
+    <select id="unitSelect"></select>
+    <br>
+    <button id="deleteBtn">削除</button>
+    <button id="clearBtn">すべて削除</button>
+  </section>
+
+  <section>
+    <h2>生徒用ページへ</h2>
+    <button id="studentPageBtn">生徒用テストページを開く</button>
+  </section>
+
+  <footer>
+    <p>© 2025 語彙力テストシステム</p>
+  </footer>
+
+  <script>
+    // === データ読み込み ===
+    function loadUnits() {
+      const units = JSON.parse(localStorage.getItem("units") || "{}");
+      const select = document.getElementById("unitSelect");
+      select.innerHTML = "";
+      Object.keys(units).forEach(u => {
+        const opt = document.createElement("option");
+        opt.value = u;
+        opt.textContent = u;
+        select.appendChild(opt);
+      });
+    }
+
+    // === 単元保存 ===
+    document.getElementById("saveBtn").onclick = () => {
+      const name = document.getElementById("unitName").value.trim();
+      const data = document.getElementById("wordInput").value.trim().split("\n");
+      if (!name || data.length === 0) {
+        alert("単元名と単語リストを入力してください。");
+        return;
+      }
+
+      const obj = {};
+      data.forEach(line => {
+        const [en, jp] = line.split("=");
+        if (en && jp) obj[jp.trim()] = en.trim(); // ← 日本語→英語の順に登録
+      });
+
+      const units = JSON.parse(localStorage.getItem("units") || "{}");
+      units[name] = obj;
+      localStorage.setItem("units", JSON.stringify(units));
+
+      alert(`単元「${name}」を保存しました！`);
+      document.getElementById("unitName").value = "";
+      document.getElementById("wordInput").value = "";
+      loadUnits();
+    };
+
+    // === 単元削除 ===
+    document.getElementById("deleteBtn").onclick = () => {
+      const select = document.getElementById("unitSelect");
+      const name = select.value;
+      if (!name) return alert("削除する単元を選んでください。");
+      if (!confirm(`「${name}」を削除しますか？`)) return;
+
+      const units = JSON.parse(localStorage.getItem("units") || "{}");
+      delete units[name];
+      localStorage.setItem("units", JSON.stringify(units));
+      loadUnits();
+    };
+
+    // === 全削除 ===
+    document.getElementById("clearBtn").onclick = () => {
+      if (confirm("すべての単元を削除しますか？")) {
+        localStorage.removeItem("units");
+        loadUnits();
+      }
+    };
+
+    // === 生徒用ページに移動 ===
+    document.getElementById("studentPageBtn").onclick = () => {
+      window.location.href = "student.html";
+    };
+
+    // 初期化
+    loadUnits();
+  </script>
+</body>
+</html>
